@@ -2,37 +2,29 @@ import { useContext, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import "../../CSS/ButtonIncDec.css";
 import { AuthContext } from "../../AuthContext";
+import { CartContext } from "../../CartContext";
 
 function ButtonIncDec({ dishId, initialQuantity, onRemove }) {
   const { authToken } = useContext(AuthContext);
+  const { incDecItem } = useContext(CartContext);
   const [num, setNum] = useState(initialQuantity);
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleClick = async (isIncrease) => {
-    try {
-      const response = await fetch(
-        `/api/Cart/increaseOrDecreaseDish?idDish=${dishId}&isIncrease=${isIncrease}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      const result = await response.text();
-      if (!response.ok) {
-        throw new Error(result);
-      }
+    const result = await incDecItem(dishId, isIncrease);
+    if (!result.success) {
+      setError(result.message);
+    } else {
+      setError(null);
+      setMessage(result.message);
 
-      if (result === "Dish increased!") {
-        setNum(num + 1);
-      } else if (result === "Dish decreased!") {
-        setNum(num - 1);
-      } else if (result === "Dish removed!") {
-        onRemove?.();
+      const newQuantity = isIncrease ? num + 1 : num - 1;
+      setNum(newQuantity);
+
+      if (newQuantity <= 0 && onRemove) {
+        onRemove();
       }
-    } catch (error) {
-      console.error(error.message);
     }
   };
   return (

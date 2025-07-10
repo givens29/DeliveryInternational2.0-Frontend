@@ -5,16 +5,14 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../AuthContext";
 import { CartContext } from "../../CartContext";
 import ButtonIncDec from "./ButtonIncDec";
-import { useNavigate } from "react-router-dom";
 
 function Dish({ dish }) {
   const [addDish, setAddDish] = useState(false);
   const [error, setError] = useState();
   const { authToken } = useContext(AuthContext);
-  const { cart } = useContext(CartContext);
-  const navigation = useNavigate();
+  const { cart, addItem, removeItem } = useContext(CartContext);
 
-  const existingDish = cart?.dishInCarts?.find((d) => dish.id === dish.id);
+  const existingDish = cart?.dishInCarts?.find((d) => d.id === dish.id);
   const isInCart = !!existingDish;
   const initialQuantity = existingDish?.count || 1;
 
@@ -22,35 +20,17 @@ function Dish({ dish }) {
     setAddDish(isInCart);
   }, [isInCart]);
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async () => {
+    const result = await addItem(dish.id);
 
-    try {
-      const response = await fetch(
-        `/api/Cart/addDishToCart?idDish=${dish.id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      if (response.status === 401) {
-        navigation("/login");
-      }
-      if (!response.ok) {
-        const errorMessage = response.text();
-        throw new Error(`${errorMessage}`);
-      }
-
-      setAddDish(true);
-    } catch (error) {
-      setError(error.message);
+    if (!result.success) {
+      setError(result.message);
+    } else {
+      setError(null);
     }
   };
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     setAddDish(false);
   };
 

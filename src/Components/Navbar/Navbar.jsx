@@ -9,7 +9,10 @@ import Account from "./Account";
 function Navigation() {
   const { authToken } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
-  const cartNum = cart?.dishInCarts?.reduce((sum, dish) => sum + dish.count, 0);
+  const cartNum = cart?.dishInCarts?.reduce(
+    (sum, dish) => sum + dish.count,
+    ""
+  );
 
   const navigation = useNavigate();
 
@@ -26,13 +29,19 @@ function Navigation() {
             <div className="p-2">
               <Nav className="me-auto">
                 <Nav.Link href="/">Menu</Nav.Link>
-                <Nav.Link href="#link">Orders</Nav.Link>
-                <Nav.Link href="/cart">
-                  Cart{" "}
-                  <Badge bg="danger" pill>
-                    {cartNum}
-                  </Badge>
-                </Nav.Link>
+                {authToken && (
+                  <>
+                    <Nav.Link href="#link">Orders</Nav.Link>
+                    <Nav.Link href="/cart">
+                      Cart{" "}
+                      {cartNum && (
+                        <Badge bg="danger" pill>
+                          {cartNum}
+                        </Badge>
+                      )}
+                    </Nav.Link>
+                  </>
+                )}
               </Nav>
             </div>
             {authToken ? (

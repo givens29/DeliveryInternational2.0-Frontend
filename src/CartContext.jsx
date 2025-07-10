@@ -4,48 +4,93 @@ import { AuthContext } from "./AuthContext";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
   const { authToken, logout } = useContext(AuthContext);
+  const [cart, setCart] = useState({ dishInCarts: [] });
 
-  useEffect(() => {
+  const fetchCart = async () => {
     if (!authToken) return;
 
-    const fetchCart = async () => {
-      try {
-        const response = await fetch("/api/Cart/getCart", {
-          method: "GET",
+    const response = await fetch("/api/Cart/getCart", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setCart(data);
+    } else if (response.status === 401) {
+      logout();
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, [authToken]);
+
+  const addItem = async (dishId) => {
+    try {
+      const response = await fetch(`/api/Cart/addDishToCart?idDish=${dishId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (response.status === 401) {
+        logout();
+      }
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "Error adding item to cart.");
+      }
+
+      await fetchCart();
+      return { success: true };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
+
+  const incDecItem = async (dishId, isInCrease) => {
+    try {
+      const response = await fetch(
+        `/api/Cart/increaseOrDecreaseDish?idDish=${dishId}&isIncrease=${isInCrease}`,
+        {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${authToken}`,
           },
-        });
-
-        if (response.status === 401) {
-          logout();
-          return;
         }
+      );
 
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(errorMessage);
-        }
-
-        const result = await response.json();
-        setCart(result);
-      } catch (error) {
-        console.error(error.message);
+      if (response.status === 401) {
+        logout();
       }
-    };
 
-    fetchCart();
-  }, [authToken, logout]);
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "Error removing item.");
+      }
+
+      const result = await response.text();
+      await fetchCart();
+      return {
+        success: true,
+        message: result || (isInCrease ? "Dish increased!" : "Dish decreased!"),
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
 
   return (
     <CartContext.Provider
-      value={{
-        cart,
-        setCart,
-      }}
+      value={{ cart, setCart, fetchCart, addItem, incDecItem }}
     >
       {children}
     </CartContext.Provider>

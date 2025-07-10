@@ -139,7 +139,7 @@ function Profile() {
 
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" value={formData.email} disabled />
+          <Form.Control type="email" value={formData.email || ""} disabled />
         </Form.Group>
         <Button variant="primary" type="submit">
           Edit
