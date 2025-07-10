@@ -1,7 +1,21 @@
-import { Container, Row, Image, Col, Button } from "react-bootstrap";
+import { Container, Row, Image, Col, Button, Alert } from "react-bootstrap";
 import ButtonIncDec from "../MainPageComponent/ButtonIncDec";
+import { useContext, useState } from "react";
+import { CartContext } from "../../CartContext";
 
 function Item({ item }) {
+  const { removeItem } = useContext(CartContext);
+  const [error, setError] = useState();
+  const handleRemove = async () => {
+    const result = await removeItem(item.id);
+
+    if (!result.success) {
+      setError(result.message);
+    } else {
+      setError(null);
+    }
+  };
+
   return (
     <Container>
       <Row>
@@ -20,7 +34,14 @@ function Item({ item }) {
               </Col>
             </Col>
             <Col>
-              <Button variant="danger">Remove</Button>
+              <Button variant="danger" onClick={handleRemove}>
+                Remove
+              </Button>
+              {error && (
+                <Alert className="mt-5" variant="danger">
+                  {error}
+                </Alert>
+              )}
             </Col>
           </Row>
         </Col>

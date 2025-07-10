@@ -9,10 +9,7 @@ import Account from "./Account";
 function Navigation() {
   const { authToken } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
-  const cartNum = cart?.dishInCarts?.reduce(
-    (sum, dish) => sum + dish.count,
-    ""
-  );
+  const cartNum = cart?.dishInCarts?.reduce((sum, dish) => sum + dish.count, 0);
 
   const navigation = useNavigate();
 
@@ -34,7 +31,7 @@ function Navigation() {
                     <Nav.Link href="#link">Orders</Nav.Link>
                     <Nav.Link href="/cart">
                       Cart{" "}
-                      {cartNum && (
+                      {cartNum > 0 && (
                         <Badge bg="danger" pill>
                           {cartNum}
                         </Badge>

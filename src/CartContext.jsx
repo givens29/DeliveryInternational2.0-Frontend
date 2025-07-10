@@ -73,8 +73,8 @@ export const CartProvider = ({ children }) => {
       }
 
       if (!response.ok) {
-        const message = await response.text();
-        throw new Error(message || "Error removing item.");
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
       }
 
       const result = await response.text();
@@ -88,9 +88,29 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const removeItem = async (dishId) => {
+    try {
+      const response = await fetch(`/api/Cart/removeDish?idDish=${dishId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+      await fetchCart();
+      return { success: true };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ cart, setCart, fetchCart, addItem, incDecItem }}
+      value={{ cart, setCart, fetchCart, addItem, incDecItem, removeItem }}
     >
       {children}
     </CartContext.Provider>
