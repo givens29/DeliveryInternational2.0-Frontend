@@ -12,8 +12,8 @@ function Cart() {
     <>
       {cart?.dishInCarts?.length > 0 ? (
         cart?.dishInCarts?.map((item, index) => (
-          <ListGroup>
-            <ListGroup.Item key={item.id}>
+          <ListGroup key={item.id}>
+            <ListGroup.Item>
               {index + 1}
               <Item item={item} />
             </ListGroup.Item>

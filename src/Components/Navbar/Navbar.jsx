@@ -28,7 +28,7 @@ function Navigation() {
                 <Nav.Link href="/">Menu</Nav.Link>
                 {authToken && (
                   <>
-                    <Nav.Link href="#link">Orders</Nav.Link>
+                    <Nav.Link href="/order">Orders</Nav.Link>
                     <Nav.Link href="/cart">
                       Cart{" "}
                       {cartNum > 0 && (

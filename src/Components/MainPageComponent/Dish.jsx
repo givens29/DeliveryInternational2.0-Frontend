@@ -5,11 +5,13 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../AuthContext";
 import { CartContext } from "../../CartContext";
 import ButtonIncDec from "./ButtonIncDec";
+import { useNavigate } from "react-router-dom";
 
 function Dish({ dish }) {
   const [addDish, setAddDish] = useState(false);
   const [error, setError] = useState();
   const { authToken } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { cart, addItem, removeItem } = useContext(CartContext);
 
   const existingDish = cart?.dishInCarts?.find((d) => d.id === dish.id);
@@ -34,14 +36,21 @@ function Dish({ dish }) {
     setAddDish(false);
   };
 
+  const ratings = dish.ratings || [];
+  const total = ratings.reduce((sum, r) => sum + r.value, 0);
+  const averageRating = ratings.length ? total / ratings.length : 0;
+
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card
+      style={{ width: "18rem" }}
+      onClick={() => navigate(`/detail-dish/${dish.id}`)}
+    >
       <Card.Img variant="top" src={dish.image} />
       <Card.Body>
         <Card.Title>{dish.name}</Card.Title>
         <p>Category - {dish.category}</p>
         <Rating
-          initialRating={dish.rating}
+          initialRating={averageRating}
           emptySymbol={<FaRegStar color="gray" />}
           fullSymbol={<FaStar color="gold" />}
           onChange={(value) => console.log("Rated:", value)}

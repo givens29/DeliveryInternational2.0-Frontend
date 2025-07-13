@@ -8,6 +8,10 @@ import Profile from "./Pages/Profile";
 import Cart from "./Components/Cart/Cart";
 import { AuthProvider } from "./AuthContext";
 import { CartProvider } from "./CartContext";
+import Order from "./Components/Order/Order";
+import CreateOrder from "./Components/Order/CreateOrder";
+import DetailOrder from "./Components/Order/DetailOrder";
+import DetailDish from "./Components/MainPageComponent/DetailDish";
 import "./App.css";
 
 function App() {
@@ -22,6 +26,10 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/create-order" element={<CreateOrder />} />
+            <Route path="/detail-order/:idOrder" element={<DetailOrder />} />
+            <Route path="/detail-dish/:idDish" element={<DetailDish />} />
           </Routes>
         </CartProvider>
       </AuthProvider>

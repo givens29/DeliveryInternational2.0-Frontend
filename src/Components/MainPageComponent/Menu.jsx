@@ -28,7 +28,6 @@ function Menu({ filters, setFilters }) {
       .then((menu) => {
         setMenu(menu.dishes);
         setPagination(menu.pagination);
-        console.log(menu);
       })
       .catch((error) => {
         console.error(error);
