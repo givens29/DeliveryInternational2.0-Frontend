@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Dish from "./Dish";
 import Page from "./Pagination";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Menu({ filters, setFilters }) {
   const [menu, setMenu] = useState([]);
@@ -60,16 +61,22 @@ function Menu({ filters, setFilters }) {
   }
 
   return (
-    <>
-      {menu?.map((dish) => (
-        <Dish key={dish.id} dish={dish} />
-      ))}
-      <Page
-        currentPage={pagination.currentPage}
-        totalPages={pagination.totalPages}
-        onPageChange={handlePageChange}
-      />
-    </>
+    <Container>
+      <Row>
+        {menu?.map((dish) => (
+          <Col className="mt-5" key={dish.id}>
+            <Dish dish={dish} />
+          </Col>
+        ))}
+      </Row>
+      <Row className="mt-5 mx-auto p-2" style={{ width: "200px" }}>
+        <Page
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          onPageChange={handlePageChange}
+        />
+      </Row>
+    </Container>
   );
 }
 

@@ -1,0 +1,11 @@
+.detail-dish img {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+
+.detail-dish {
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+  padding: 10px;
+}

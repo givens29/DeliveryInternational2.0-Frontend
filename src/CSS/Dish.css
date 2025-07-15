@@ -1,0 +1,16 @@
+.dish-card {
+  width: 18rem;
+  cursor: pointer;
+  height: 100%;
+}
+
+.dish-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.dish-card .card-body {
+  display: flex;
+  flex-direction: column;
+}
