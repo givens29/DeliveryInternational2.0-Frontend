@@ -22,11 +22,8 @@ function MenuFilters({ filters = {}, setFilters = () => {}, onApply }) {
   };
 
   return (
-    <Container className="pt-2">
-      <Row
-        className="justify-content-center align-items-center p-2"
-        style={{ border: "1px solid #D7D7D7", borderRadius: "5px" }}
-      >
+    <Container className="pt-2 menu-filters">
+      <Row className="justify-content-center align-items-center p-2">
         <Col className="text-center" xs="auto">
           <Dropdown onSelect={handleCategorySelect}>
             <Dropdown.Toggle variant="success" id="dropdown-category">

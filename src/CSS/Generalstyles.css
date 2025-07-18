@@ -1,0 +1,21 @@
+.cursor {
+  cursor: pointer;
+}
+
+.main-page {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.menu .pagination {
+  width: 200px;
+}
+
+.menu-filters {
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+}
+
+.info {
+  height: 60vh;
+}

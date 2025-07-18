@@ -46,19 +46,20 @@ function OrderHistory({ order }) {
 
   return (
     <Container onClick={() => navigate(`/detail-order/${order.id}`)}>
-      <Row>
-        <Col>
+      <Row className="d-flex justify-content-between align-items-center">
+        <Col xs="auto">
           <p className="fw-bold">Order from {orderDate}</p>
           <p>Delivery status - {order.status}</p>
           <p>Delivery time: {deliveryTime}</p>
         </Col>
-        <Col>
+        <Col xs="auto" className="text-end">
           {order.status === "InProcess" && (
             <Button variant="outline-success" onClick={handleClick}>
               Confirm Delivery
             </Button>
           )}
-          <p>
+
+          <p className="mt-2">
             <span className="fw-bold">Total order cost</span>: {order.price}$
           </p>
         </Col>

@@ -7,6 +7,7 @@ import {
   ListGroup,
   Button,
   Alert,
+  Container,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
@@ -93,80 +94,79 @@ function CreateOrder() {
 
   if (cart?.dishInCarts.length === 0) {
     return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "60vh" }}
-      >
+      <div className="d-flex justify-content-center align-items-center info">
         <p className="text-muted fs-4">No items in the cart.</p>
       </div>
     );
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h2 className="fw-bold">Create Order</h2>
-      <h6 className="fw-bold">User Data</h6>
-      <Row>
-        <Col>
-          <FloatingLabel
-            controlId="phoneNumber"
-            label="Phone Number"
-            className="mb-3"
-          >
-            <Form.Control
-              value={userData.phoneNumber || "-"}
-              disabled
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-        </Col>
-        <Col>
-          <FloatingLabel controlId="email" label="Email" className="mb-3">
-            <Form.Control
-              value={userData.email || "-"}
-              disabled
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-        </Col>
-      </Row>
-      <h6 className="fw-bold">Delivery Data</h6>
-      <Row>
-        <Col>
-          <Form.Group controlId="address">
-            <Form.Label>Delivery Address</Form.Label>
-            <Form.Control type="text" required onChange={handleChange} />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group controlId="dateTimeDelivery">
-            <Form.Label>Delivery Time</Form.Label>
-            <Form.Control
-              type="datetime-local"
-              required
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row>
-        <p>Item list:</p>
-        {cart?.dishInCarts?.map((item) => (
-          <ListGroup key={item.id}>
-            <ListGroup.Item>
-              <ItemOrder item={item} />
-            </ListGroup.Item>
-          </ListGroup>
-        ))}
-      </Row>
-      <p>
-        <span className="fw-bold">Total</span>: {cart.amount}
-      </p>
-      <Button variant="success" type="submit">
-        Confirm Order
-      </Button>
-      {error && <Alert variant="danger">{error}</Alert>}
-    </Form>
+    <Container className="mt-2">
+      <Form onSubmit={handleSubmit}>
+        <h2 className="fw-bold">Create Order</h2>
+        <h6 className="fw-bold">User Data</h6>
+        <Row>
+          <Col>
+            <FloatingLabel
+              controlId="phoneNumber"
+              label="Phone Number"
+              className="mb-3"
+            >
+              <Form.Control
+                value={userData.phoneNumber || "-"}
+                disabled
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            <FloatingLabel controlId="email" label="Email" className="mb-3">
+              <Form.Control
+                value={userData.email || "-"}
+                disabled
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        <h6 className="fw-bold">Delivery Data</h6>
+        <Row>
+          <Col>
+            <Form.Group controlId="address">
+              <Form.Label>Delivery Address</Form.Label>
+              <Form.Control type="text" required onChange={handleChange} />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="dateTimeDelivery">
+              <Form.Label>Delivery Time</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                required
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <p>Item list:</p>
+          {cart?.dishInCarts?.map((item) => (
+            <ListGroup key={item.id}>
+              <ListGroup.Item>
+                <ItemOrder item={item} />
+              </ListGroup.Item>
+            </ListGroup>
+          ))}
+        </Row>
+        <p>
+          <span className="fw-bold">Total</span>: {cart.amount}$
+        </p>
+        <Button variant="success" type="submit">
+          Confirm Order
+        </Button>
+        {error && <Alert variant="danger">{error}</Alert>}
+      </Form>
+    </Container>
   );
 }
 

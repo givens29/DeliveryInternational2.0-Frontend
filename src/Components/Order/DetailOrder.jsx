@@ -125,10 +125,7 @@ function DetailOrder() {
                 </ListGroup>
               ))
             ) : (
-              <div
-                className="d-flex justify-content-center align-items-center"
-                style={{ height: "60vh" }}
-              >
+              <div className="d-flex justify-content-center align-items-center info">
                 <p className="text-muted fs-4"> No Order history.</p>
               </div>
             )}

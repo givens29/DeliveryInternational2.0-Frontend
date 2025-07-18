@@ -61,7 +61,7 @@ function Menu({ filters, setFilters }) {
   }
 
   return (
-    <Container>
+    <Container className="menu">
       <Row>
         {menu?.map((dish) => (
           <Col className="mt-5" key={dish.id}>
@@ -69,7 +69,7 @@ function Menu({ filters, setFilters }) {
           </Col>
         ))}
       </Row>
-      <Row className="mt-5 mx-auto p-2" style={{ width: "200px" }}>
+      <Row className="mt-5 mx-auto p-2 pagination">
         <Page
           currentPage={pagination.currentPage}
           totalPages={pagination.totalPages}

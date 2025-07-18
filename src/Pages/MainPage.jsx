@@ -12,13 +12,7 @@ function MainPage() {
   });
 
   return (
-    <Container
-      className="mt-4"
-      style={{
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        borderRadius: "12px",
-      }}
-    >
+    <Container className="mt-4 main-page">
       {" "}
       <MenuFilters
         filters={filters}

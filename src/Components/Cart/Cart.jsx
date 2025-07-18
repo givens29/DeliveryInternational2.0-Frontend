@@ -1,6 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../AuthContext";
+import { useContext } from "react";
 import { CartContext } from "../../CartContext";
 import Item from "./Item";
 import { TiShoppingCart } from "react-icons/ti";
@@ -20,10 +19,7 @@ function Cart() {
           </ListGroup>
         ))
       ) : (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: "60vh" }}
-        >
+        <div className="d-flex justify-content-center align-items-center info">
           <p className="text-muted fs-4">
             {" "}
             <TiShoppingCart className="fs-1" /> Cart is empty.

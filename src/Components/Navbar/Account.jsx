@@ -10,7 +10,7 @@ export default function Account() {
 
   return (
     <>
-      <RiAccountCircleLine onClick={handleClick} size={30} />
+      <RiAccountCircleLine onClick={handleClick} size={30} className="cursor" />
     </>
   );
 }

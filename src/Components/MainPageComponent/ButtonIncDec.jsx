@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import "../../CSS/ButtonIncDec.css";
-import { AuthContext } from "../../AuthContext";
 import { CartContext } from "../../CartContext";
 
 function ButtonIncDec({ dishId, initialQuantity, onRemove, onError }) {
@@ -29,14 +28,14 @@ function ButtonIncDec({ dishId, initialQuantity, onRemove, onError }) {
   return (
     <Container>
       <Row className="rowBut">
-        <Col xs="auto" className="indicator" onClick={() => handleClick(true)}>
-          {" "}
-          +{" "}
-        </Col>
-        <Col className="text-center">{num}</Col>
-        <Col xs="auto" className="indicator" onClick={() => handleClick(false)}>
+        <Col className="indicator cursor" onClick={() => handleClick(false)}>
           {" "}
           -{" "}
+        </Col>
+        <Col className="text-center">{num}</Col>
+        <Col className="indicator cursor" onClick={() => handleClick(true)}>
+          {" "}
+          +{" "}
         </Col>
       </Row>
     </Container>

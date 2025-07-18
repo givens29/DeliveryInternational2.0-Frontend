@@ -78,8 +78,7 @@ function DetailDish() {
     return (
       <div
         variant="danger"
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "60vh" }}
+        className="d-flex justify-content-center align-items-center info"
       >
         <Alert variant="danger">
           <p className="text-muted fs-4">{error}</p>

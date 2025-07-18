@@ -41,7 +41,7 @@ function Order() {
   };
 
   return (
-    <Container>
+    <Container className="mt-2 order">
       <Row>
         <Col>
           <p>An order can be created with the items in the cart</p>
@@ -62,10 +62,7 @@ function Order() {
           </ListGroup>
         ))
       ) : (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: "60vh" }}
-        >
+        <div className="d-flex justify-content-center align-items-center info">
           <p className="text-muted fs-4"> No Order history.</p>
         </div>
       )}

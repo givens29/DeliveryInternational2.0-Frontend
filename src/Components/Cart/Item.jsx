@@ -18,32 +18,30 @@ function Item({ item }) {
 
   return (
     <Container>
-      <Row>
-        <Col sm={4}>
+      <Row className="d-flex justify-content-center">
+        <Col>
+          <Image src={item.image} rounded className="w-100 p-3" />
+        </Col>
+        <Col>
           <Row>
-            <Col>
-              <Image src={item.image} rounded className="w-100 p-3" />
+            <Col sm={12} lg={6}>
+              <h6>{item.name}</h6>
+              <p>Price: {item.price} $</p>
             </Col>
-            <Col>
-              <Col>
-                <h6>{item.name}</h6>
-                <p>Price: {item.price} $</p>
-              </Col>
-              <Col>
-                <ButtonIncDec dishId={item.id} initialQuantity={item.count} />
-              </Col>
-            </Col>
-            <Col>
-              <Button variant="danger" onClick={handleRemove}>
-                Remove
-              </Button>
-              {error && (
-                <Alert className="mt-5" variant="danger">
-                  {error}
-                </Alert>
-              )}
+            <Col sm={12} lg={6}>
+              <ButtonIncDec dishId={item.id} initialQuantity={item.count} />
             </Col>
           </Row>
+        </Col>
+        <Col className="text-end">
+          <Button variant="danger" onClick={handleRemove}>
+            Remove
+          </Button>
+          {error && (
+            <Alert className="mt-5" variant="danger">
+              {error}
+            </Alert>
+          )}
         </Col>
       </Row>
     </Container>

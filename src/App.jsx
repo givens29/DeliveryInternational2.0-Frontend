@@ -12,7 +12,8 @@ import Order from "./Components/Order/Order";
 import CreateOrder from "./Components/Order/CreateOrder";
 import DetailOrder from "./Components/Order/DetailOrder";
 import DetailDish from "./Components/MainPageComponent/DetailDish";
-import "./App.css";
+import "../src/CSS/Breakpoints.css";
+import "../src/CSS/Generalstyles.css";
 
 function App() {
   return (

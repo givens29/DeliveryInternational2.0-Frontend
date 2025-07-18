@@ -47,36 +47,39 @@ function Dish({ dish }) {
   };
 
   return (
-    <Card
-      className="dish-card"
-      onClick={() => navigate(`/detail-dish/${dish.id}`)}
-    >
+    <Card className="dish-card cursor">
       <Card.Img variant="top" src={dish.image} />
       <Card.Body>
-        <Card.Title>{dish.name}</Card.Title>
-        <p>Category - {dish.category}</p>
-        <Rating
-          initialRating={averageRating}
-          emptySymbol={<FaRegStar color="gray" />}
-          fullSymbol={<FaStar color="gold" />}
-          onChange={(value) => console.log("Rated:", value)}
-        />
-        <Card.Text>{dish.description}</Card.Text>
-        <div className="mt-auto d-flex justify-content-between align-items-center">
-          <p className="mb-0 fw-bold">{dish.price}$</p>
-          {isInCart || addDish ? (
-            <ButtonIncDec
-              dishId={dish.id}
-              initialQuantity={initialQuantity}
-              onRemove={handleRemove}
-              onError={handleError}
-            />
-          ) : (
-            <Button variant="primary" onClick={handleClick}>
-              Add To Cart
-            </Button>
-          )}
+        <div onClick={() => navigate(`/detail-dish/${dish.id}`)}>
+          <Card.Title>{dish.name}</Card.Title>
+          <p>Category - {dish.category}</p>
+          <Rating
+            initialRating={averageRating}
+            emptySymbol={<FaRegStar color="gray" />}
+            fullSymbol={<FaStar color="gold" />}
+            onChange={(value) => console.log("Rated:", value)}
+          />
+          <Card.Text>{dish.description}</Card.Text>
         </div>
+        <Row className="mt-4 d-flex justify-content-between align-items-center">
+          <Col>
+            <p className="mb-0 fw-bold">{dish.price}$</p>
+          </Col>
+          <Col>
+            {isInCart || addDish ? (
+              <ButtonIncDec
+                dishId={dish.id}
+                initialQuantity={initialQuantity}
+                onRemove={handleRemove}
+                onError={handleError}
+              />
+            ) : (
+              <Button variant="primary" onClick={handleClick}>
+                Add To Cart
+              </Button>
+            )}
+          </Col>
+        </Row>
       </Card.Body>
 
       {error && <Alert variant="danger">{error}</Alert>}

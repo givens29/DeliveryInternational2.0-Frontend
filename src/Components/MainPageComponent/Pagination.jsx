@@ -1,6 +1,7 @@
 import { Pagination } from "react-bootstrap";
 
 function Page({ currentPage, totalPages, onPageChange }) {
+  if (totalPages <= 1) return null;
   const items = [];
   for (let number = 1; number <= totalPages; number++) {
     items.push(
